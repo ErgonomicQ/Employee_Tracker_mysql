@@ -11,11 +11,11 @@ async function getAllDepartments() {
   }
 }
 
-//  get a list of all roles
-async function getAllRoles() {
+//  get a list of all positions
+async function getAllPositions() {
   const connection = await connectToDatabase();
   try {
-    const [rows] = await connection.query('SELECT * FROM role');
+    const [rows] = await connection.query('SELECT * FROM position');
     return rows;
   } finally {
     connection.end();
@@ -44,11 +44,11 @@ async function addDepartment(name) {
   }
 }
 
-// add a new role
-async function addRole(title, salary, departmentId) {
+// add a new position
+async function addPosition(title, salary, departmentId) {
   const connection = await connectToDatabase();
   try {
-    const [result] = await connection.query('INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)', [title, salary, departmentId]);
+    const [result] = await connection.query('INSERT INTO position (title, salary, department_id) VALUES (?, ?, ?)', [title, salary, departmentId]);
     return result.insertId;
   } finally {
     connection.end();
@@ -56,21 +56,21 @@ async function addRole(title, salary, departmentId) {
 }
 
 //  add a new employee
-async function addEmployee(firstName, lastName, roleId, managerId) {
+async function addEmployee(firstName, lastName, positionId, managerId) {
   const connection = await connectToDatabase();
   try {
-    const [result] = await connection.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [firstName, lastName, roleId, managerId]);
+    const [result] = await connection.query('INSERT INTO employee (first_name, last_name, position_id, manager_id) VALUES (?, ?, ?, ?)', [firstName, lastName, positionId, managerId]);
     return result.insertId;
   } finally {
     connection.end();
   }
 }
 
-//pdate an employee's role
-async function updateEmployeeRole(employeeId, roleId) {
+//pdate an employee's position
+async function updateEmployeeposition(employeeId, positionId) {
   const connection = await connectToDatabase();
   try {
-    await connection.query('UPDATE employee SET role_id = ? WHERE id = ?', [roleId, employeeId]);
+    await connection.query('UPDATE employee SET position_id = ? WHERE id = ?', [positionId, employeeId]);
   } finally {
     connection.end();
   }
@@ -78,10 +78,10 @@ async function updateEmployeeRole(employeeId, roleId) {
 
 module.exports = {
   getAllDepartments,
-  getAllRoles,
+  getAllPositions,
   getAllEmployees,
   addDepartment,
-  addRole,
+  addPosition,
   addEmployee,
-  updateEmployeeRole,
+  updateEmployeeposition,
 };
