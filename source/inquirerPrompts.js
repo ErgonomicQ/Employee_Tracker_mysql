@@ -1,4 +1,6 @@
-const inquirer = require('inquirer');
+
+const inquirer = require ("inquirer")
+
 
 async function promptAddDepartment() {
   return inquirer.prompt([

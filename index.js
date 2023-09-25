@@ -1,16 +1,17 @@
-const inquirer  = require("inquirer");
+
+const inquirer = require ("inquirer")
 //import of queries functions
 const {
     getAllDepartments,
-    getAllRoles,
+    getAllPositions,
     getAllEmployees,
     addDepartment,
-    addRole,
+    addPosition,
     addEmployee,
-    updateEmployeeRole,
-  } = require('./queries');
+    updateEmployeePosition,
+  } = require('./source/queries');
   //import of asynchronous prompts
-  const inquirerPrompts = require('./inquirerPrompts');
+  const inquirerPrompts = require('./source/inquirerPrompts.js');
   
   //Main Menu choices
 
@@ -38,7 +39,7 @@ const {
           break;
     
         case 'View all roles':
-          const roles = await getAllRoles();
+          const roles = await getAllPositions();
           console.table(roles);
           break;
     
@@ -55,7 +56,7 @@ const {
     
         case 'Add a role':
           const roleDetails = await inquirerPrompts.promptAddRole();
-          await addRole(roleDetails.title, roleDetails.salary, roleDetails.departmentId);
+          await addPosition(roleDetails.title, roleDetails.salary, roleDetails.departmentId);
           console.log('Role added successfully!');
           break;
     
@@ -72,7 +73,7 @@ const {
     
         case 'Update an employee role':
           const employeeToUpdate = await inquirerPrompts.promptUpdateEmployeeRole();
-          await updateEmployeeRole(employeeToUpdate.employeeId, employeeToUpdate.newRoleId);
+          await updateEmployeePosition(employeeToUpdate.employeeId, employeeToUpdate.newRoleId);
           console.log('Employee role updated successfully!');
           break;
     

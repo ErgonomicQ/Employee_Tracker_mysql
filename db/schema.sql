@@ -1,6 +1,5 @@
 DROP DATABASE IF EXISTS company_db;
 -- make the database if it doesn't exist
-
 CREATE DATABASE IF NOT EXISTS company_db;
 
 -- Use the database
