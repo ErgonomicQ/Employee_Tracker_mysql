@@ -1,4 +1,4 @@
-const { connectToDatabase } = require('./connection');
+const { connectToDatabase } = require('./connection.js');
 
 // get a list of all departments
 async function getAllDepartments() {
@@ -15,7 +15,7 @@ async function getAllDepartments() {
 async function getAllPositions() {
   const connection = await connectToDatabase();
   try {
-    const [rows] = await connection.query('SELECT * FROM position');
+    const [rows] = await connection.query('SELECT * FROM job');
     return rows;
   } finally {
     connection.end();
@@ -26,12 +26,28 @@ async function getAllPositions() {
 async function getAllEmployees() {
   const connection = await connectToDatabase();
   try {
-    const [rows] = await connection.query('SELECT * FROM employee');
+    const [rows] = await connection.query(`
+      SELECT 
+        e.id, 
+        e.first_name, 
+        e.last_name, 
+        j.title AS job_title, 
+        j.salary, 
+        e.manager_id
+      FROM 
+        employee e
+      LEFT JOIN 
+        job j ON e.job_id = j.id
+    `);
     return rows;
   } finally {
     connection.end();
   }
 }
+
+
+  
+
 
 // add a new department
 async function addDepartment(name) {
@@ -67,7 +83,7 @@ async function addEmployee(firstName, lastName, positionId, managerId) {
 }
 
 //pdate an employee's position
-async function updateEmployeeposition(employeeId, positionId) {
+async function updateEmployeePosition(employeeId, positionId) {
   const connection = await connectToDatabase();
   try {
     await connection.query('UPDATE employee SET role_id = ? WHERE id = ?', [positionId, employeeId]);
@@ -76,12 +92,13 @@ async function updateEmployeeposition(employeeId, positionId) {
   }
 }
 
-module.exports = {
+module.exports= 
+{
   getAllDepartments,
   getAllPositions,
   getAllEmployees,
   addDepartment,
   addPosition,
   addEmployee,
-  updateEmployeeposition,
+  updateEmployeePosition,
 };
