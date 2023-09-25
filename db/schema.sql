@@ -1,4 +1,6 @@
+DROP DATABASE IF EXISTS company_db;
 -- make the database if it doesn't exist
+
 CREATE DATABASE IF NOT EXISTS company_db;
 
 -- Use the database
@@ -11,7 +13,7 @@ CREATE TABLE IF NOT EXISTS department (
 );
 
 -- make the position table
-CREATE TABLE IF NOT EXISTS position (
+CREATE TABLE IF NOT EXISTS job (
   id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(30) NOT NULL,
   salary DECIMAL(10, 2) NOT NULL,
@@ -24,8 +26,7 @@ CREATE TABLE IF NOT EXISTS employee (
   id INT AUTO_INCREMENT PRIMARY KEY,
   first_name VARCHAR(30) NOT NULL,
   last_name VARCHAR(30) NOT NULL,
-  position_id INT,
-  manager_id INT,
-  FOREIGN KEY (position_id) REFERENCES position(id),
-  FOREIGN KEY (manager_id) REFERENCES employee(id)
+  job_id INT,
+  manager_id VARCHAR(60),
+  FOREIGN KEY (job_id) REFERENCES job(id)
 );

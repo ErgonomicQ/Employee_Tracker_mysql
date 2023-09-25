@@ -64,7 +64,7 @@ const {
           await addEmployee(
             employeeDetails.firstName,
             employeeDetails.lastName,
-            employeeDetails.roleId,
+            employeeDetails.positionId,
             employeeDetails.managerId || null
           );
           console.log('Employee added successfully!');

@@ -59,7 +59,7 @@ async function addPosition(title, salary, departmentId) {
 async function addEmployee(firstName, lastName, positionId, managerId) {
   const connection = await connectToDatabase();
   try {
-    const [result] = await connection.query('INSERT INTO employee (first_name, last_name, position_id, manager_id) VALUES (?, ?, ?, ?)', [firstName, lastName, positionId, managerId]);
+    const [result] = await connection.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [firstName, lastName, positionId, managerId]);
     return result.insertId;
   } finally {
     connection.end();
@@ -70,7 +70,7 @@ async function addEmployee(firstName, lastName, positionId, managerId) {
 async function updateEmployeeposition(employeeId, positionId) {
   const connection = await connectToDatabase();
   try {
-    await connection.query('UPDATE employee SET position_id = ? WHERE id = ?', [positionId, employeeId]);
+    await connection.query('UPDATE employee SET role_id = ? WHERE id = ?', [positionId, employeeId]);
   } finally {
     connection.end();
   }
