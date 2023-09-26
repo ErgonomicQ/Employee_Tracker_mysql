@@ -13,6 +13,16 @@ const {
   //import of asynchronous prompts
   const inquirerPrompts = require('./source/inquirerPrompts.js');
   
+  async function startApp() {
+    while (true) {
+      const action = await mainMenu();
+      if (action === 'Exit') {
+        console.log('Goodbye!');
+        break; // Exit the loop and end the application
+      }
+    }
+  }
+
   //Main Menu choices
 
   async function mainMenu() {
@@ -65,7 +75,7 @@ const {
           await addEmployee(
             employeeDetails.firstName,
             employeeDetails.lastName,
-            employeeDetails.positionId,
+            employeeDetails.jobId,
             employeeDetails.managerId || null
           );
           console.log('Employee added successfully!');
@@ -86,8 +96,8 @@ const {
           break;
       }
     
-      mainMenu(); // Return to the beginning
+      return action; // Return the chosen action to check if the user wants to exit
     }
     
-    mainMenu(); // Start the application by displaying the main menu
+    startApp(); // Start the application by displaying the main menu
    
