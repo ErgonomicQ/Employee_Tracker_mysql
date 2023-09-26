@@ -47,7 +47,7 @@ async function promptAddEmployee() {
     {
       name: 'roleId',
       type: 'input',
-      message: "Enter the employee's role ID:",
+      message: "Enter the employee's job ID:",
     },
     {
       name: 'managerId',
